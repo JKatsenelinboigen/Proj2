@@ -69,10 +69,10 @@ class Cell{
         CellType cType = null;
         double cellTypeSeed = r.nextDouble();
 
-        if(cellTypeSeed < 0.5) cType = CellType.N;
-        else if (cellTypeSeed < 0.7) cType = CellType.H;
-        else if (cellTypeSeed < 0.9) cType = CellType.T;
-        else cType = CellType.B;
+        if(cellTypeSeed < 0.5) cType = CellType.N; //50% normal
+        else if (cellTypeSeed < 0.7) cType = CellType.H; //20% highway
+        else if (cellTypeSeed < 0.9) cType = CellType.T; //20% hard to traverse
+        else cType = CellType.B; //10% blocked
 
         return new Cell(cType);
     }
