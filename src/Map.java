@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -49,16 +50,25 @@ class Cell{
     
     public CellType type;
 
-    private double probabilityOfActualLocation;
-
-    public double getProbabilityOfActualLocation() {
-
-        if(this.type == CellType.B) this.probabilityOfActualLocation = 0;
-    	return this.probabilityOfActualLocation;
-    }
+    public int row, col;
 
     public boolean isBlocked(){
         return this.type == CellType.B;
+    }
+
+    public Cell randomCellWithProbabilities(){
+
+        final Random r = new Random();
+
+        CellType cType = null;
+        double cellTypeSeed = r.nextDouble();
+
+        if(cellTypeSeed < 0.5) cType = CellType.N;
+        else if (cellTypeSeed < 0.7) cType = CellType.H;
+        else if (cellTypeSeed < 0.9) cType = CellType.T;
+        else cType = CellType.B;
+
+        return new Cell(cType);
     }
 
     public Cell(CellType type){
@@ -72,36 +82,5 @@ enum CellType{
     N,
     T,
     B;
-
-    public Cell randomCellWithProbabilities(HashMap<CellType, Float> probabilities){
-        
-        return null;
-    }
 }
 
-enum Direction{
-    Up,
-    Down,
-    Left,
-    Right;
-
-    public Direction[] generateRandomDirectionsList(int length){
-
-        Direction[] directions = new Direction[length];
-        final Random r = new Random();
-        
-
-        for(int i = 0; i < length; i++){
-            directions[i] = Direction.values()[r.nextInt(Direction.values().length)];
-        
-            CellType cType = null;
-            double cellTypeSeed = r.nextDouble();
-
-            if(cellTypeSeed < 0.5) cType = CellType.N;
-            else if (cellTypeSeed < 0.7) cType = CellType.H;
-            else if (cellTypeSeed < 0.9) cType = CellType.T;
-            else cType = CellType.B;
-        }
-        return directions;
-    }
-}
