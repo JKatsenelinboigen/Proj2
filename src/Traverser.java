@@ -5,6 +5,7 @@ import java.util.Random;
 public class Traverser{
 
     ArrayList<Cell> groundTruthStates;
+    Map map;
 
     //given a cell, determine its type with 90% probability of 
     //being correct and each wrong option having a 5% probability
@@ -27,6 +28,33 @@ public class Traverser{
 
             return  r.nextDouble() < 0.5 ? possibleCellTypes.get(0) : possibleCellTypes.get(1);
         }
+    }
+
+    public void moveCell(Cell c, Direction d)
+    {
+        final Random r = new Random();
+        boolean moves = r.nextDouble() < 0.9 ? true : false;
+        
+        if (moves)
+        {  
+            int row = c.getRow();
+            int col = c.getCol();
+            if (d == Direction.Up)
+                row--;
+            else if (d == Direction.Down)
+                row++;
+            else if (d == Direction.Left)
+                col--;
+            else if (d == Direction.Right)
+                col++;
+            
+            Cell n = map.getCell(row, col);
+            if (n != null && !n.isBlocked())            
+                groundTruthStates.add(n);
+                return;
+        }
+        groundTruthStates.add(c);
+
     }
 }
 

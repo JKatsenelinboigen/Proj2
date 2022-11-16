@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Map {
     
-    private int rows, cols;
+    public int rows, cols;
 
     private ArrayList<ArrayList<Cell>> cells;
 
@@ -23,6 +23,21 @@ public class Map {
 
         if(!randomCell.isBlocked()) return randomCell;   
         else return getRandomUnblockedCell();
+    }
+
+    public ArrayList<ArrayList<Cell>> getCellList()
+    {
+        return cells;
+    }
+
+    public Cell getCell(int row, int col)
+    {  
+        if (row < 1 || row > rows) 
+            return null;
+        if (col < 1 || col > cols)
+            return null;
+
+        return cells.get(row).get(col);
     }
 
     private ArrayList<ArrayList<Cell>> generateExampleCellArray(){
@@ -79,6 +94,16 @@ class Cell{
 
     public Cell(CellType type){
         this.type = type;
+    }
+
+    public int getRow()
+    {
+        return row;
+    }
+
+    public int getCol()
+    {
+        return col;
     }
 
 }
