@@ -1,14 +1,15 @@
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Map {
     
     private int rows, cols;
 
-    private Cell[][] cells;
+    private ArrayList<ArrayList<Cell>> cells;
 
-    private Cell[][] generateRandomCellArray(){
+    private ArrayList<ArrayList<Cell>>  generateRandomCellArray(){
         return null;
     }
 
@@ -18,22 +19,27 @@ public class Map {
         int randomRow = r.nextInt(this.rows - 1) + 1;
         int randomCol = r.nextInt(this.cols - 1) + 1;
 
-        Cell randomCell = cells[randomRow][randomCol];
+        Cell randomCell = cells.get(randomRow).get(randomCol);
 
         if(!randomCell.isBlocked()) return randomCell;   
         else return getRandomUnblockedCell();
     }
 
-    private Cell[][] generateExampleCellArray(){
+    private ArrayList<ArrayList<Cell>> generateExampleCellArray(){
 
-        Cell[][] exampleMap = {
-            {null,null,null,null},
-            {null, new Cell(CellType.H), new Cell(CellType.H), new Cell(CellType.T)},
-            {null, new Cell(CellType.N), new Cell(CellType.N), new Cell(CellType.N)},
-            {null, new Cell(CellType.N), new Cell(CellType.B), new Cell(CellType.H)}
+        Cell[][] exampleArray ={ 
+            (new Cell[] {null,null,null,null}),
+            (new Cell[] {null, new Cell(CellType.H), new Cell(CellType.H), new Cell(CellType.T)}),
+            (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.N), new Cell(CellType.N)}),
+            (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.B), new Cell(CellType.H)}),
         };
 
-        return exampleMap;
+        ArrayList<ArrayList<Cell>> example2DList = new ArrayList<ArrayList<Cell>>();
+        for (Cell[] row : exampleArray){
+            example2DList.add(Arrays.asList(row));
+        }
+
+        return example2DList;
     }
 
     public Map(int rows, int cols){

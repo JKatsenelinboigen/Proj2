@@ -4,9 +4,7 @@ import java.util.Random;
 
 public class Traverser{
 
-    class GroundTruth{
-        
-    }
+    ArrayList<Cell> groundTruthStates;
 
     //given a cell, determine its type with 90% probability of 
     //being correct and each wrong option having a 5% probability
