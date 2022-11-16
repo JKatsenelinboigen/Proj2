@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Traverser{
 
+    //given a cell, determind its type with 90% probability of being correct, and each wrong option having a 5% probability
     public CellType observeCell(Cell c){
         
         final Random r = new Random();
@@ -15,9 +16,10 @@ public class Traverser{
         }
         else{
 
-            ArrayList<CellType> possibleCellTypes = new ArrayList<CellType>(
-                Arrays.asList(CellType.H, CellType.N, CellType.T)
-            );
+            ArrayList<CellType> possibleCellTypes =
+                new ArrayList<CellType>(
+                    Arrays.asList(CellType.H, CellType.N, CellType.T)
+                );
 
             possibleCellTypes.remove(c.type);
 

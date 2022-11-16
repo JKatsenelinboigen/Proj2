@@ -8,8 +8,19 @@ public class Map {
     private Cell[][] cells;
 
     private Cell[][] generateRandomCellArray(){
-
         return null;
+    }
+
+    public Cell getRandomUnblockedCell(){
+
+        final Random r = new Random();
+        int randomRow = r.nextInt(this.rows - 1) + 1;
+        int randomCol = r.nextInt(this.cols - 1) + 1;
+
+        Cell randomCell = cells[randomRow][randomCol];
+
+        if(!randomCell.isBlocked()) return randomCell;   
+        else return getRandomUnblockedCell();
     }
 
     private Cell[][] generateExampleCellArray(){
@@ -38,13 +49,6 @@ class Cell{
     
     public CellType type;
 
-    public CellType getType() {
-        return this.type;
-    }
-    public void setType(CellType type) {
-        this.type = type;
-    }
-
     private double probabilityOfActualLocation;
 
     public double getProbabilityOfActualLocation() {
@@ -53,8 +57,12 @@ class Cell{
     	return this.probabilityOfActualLocation;
     }
 
+    public boolean isBlocked(){
+        return this.type == CellType.B;
+    }
+
     public Cell(CellType type){
-        this.setType(type);
+        this.type = type;
     }
 
 }
