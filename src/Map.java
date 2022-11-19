@@ -40,7 +40,7 @@ public class Map {
         return cells.get(row).get(col);
     }
 
-    private ArrayList<ArrayList<Cell>> generateExampleCellArray(){
+    private static ArrayList<ArrayList<Cell>> generateExampleCellArray(){
 
         Cell[][] exampleArray ={ 
             (new Cell[] {null,null,null,null}),
@@ -51,7 +51,7 @@ public class Map {
 
         ArrayList<ArrayList<Cell>> example2DList = new ArrayList<ArrayList<Cell>>();
         for (Cell[] row : exampleArray){
-            example2DList.add(Arrays.asList(row));
+            example2DList.add(new ArrayList<Cell>(Arrays.asList(row)));        
         }
 
         return example2DList;

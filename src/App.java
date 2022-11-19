@@ -6,5 +6,9 @@ public class App {
         System.out.println("Hello, World!");
 
         Direction.generateRandomDirectionsList(5);
+
+        Map exampleMap = new Map(3, 3);
+
+        GridUI renderer = new GridUI(exampleMap);
     }
 }
