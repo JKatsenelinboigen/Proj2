@@ -1,0 +1,8 @@
+bin/App.class
+bin/Cell.class
+bin/CellType.class
+bin/Direction.class
+bin/GroundTruth.class
+bin/Map.class
+bin/Traverser.class
+bin/App.class
