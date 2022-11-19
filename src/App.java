@@ -9,6 +9,7 @@ public class App {
 
         Map exampleMap = new Map(3, 3);
 
+        System.out.println(exampleMap.getCellList().toString());
         GridUI renderer = new GridUI(exampleMap);
     }
 }

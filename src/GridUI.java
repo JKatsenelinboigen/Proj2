@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.*;
+
+import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.WindowEvent;
 import java.awt.event.*;
@@ -13,9 +15,9 @@ public class GridUI extends Frame{
     private HashMap<CellType, Color> cellColors = new HashMap<CellType, Color>()        
     {{
         put(CellType.N, Color.green);
-        put(CellType.B, Color.black);
+        put(CellType.B, Color.darkGray);
         put(CellType.T, Color.red);
-        put(CellType.H, Color.yellow);
+        put(CellType.H, Color.gray);
     }}; ;
 
 
@@ -58,12 +60,13 @@ public class GridUI extends Frame{
         for(int i = 0; i < cols; i++){
             for(int j = 0; j < rows; j++){
                 
-                GRAPHICS.drawRect(this.BLOCK_SIZE*i, this.BLOCK_SIZE*j, this.BLOCK_SIZE, this.BLOCK_SIZE);
+                CellType cType = this.mapToRender.getCell(j+1, i+1).type;
+
+                GRAPHICS.setColor(cellColors.get(cType));
+                GRAPHICS.fillRect(this.BLOCK_SIZE*i, this.BLOCK_SIZE*j, this.BLOCK_SIZE, this.BLOCK_SIZE);
             }
         }
     }    
-
-    private 
 
 }
 
