@@ -15,7 +15,7 @@ public class GridUI extends Frame{
         put(CellType.B, Color.darkGray);
         put(CellType.T, Color.red);
         put(CellType.H, Color.gray);
-    }}; ;
+    }};
 
 
     final int GRID_WIDTH = 1200, GRID_HEIGHT = 900;
