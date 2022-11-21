@@ -11,5 +11,6 @@ public class App {
 
         System.out.println(exampleMap.getCellList().toString());
         GridUI renderer = new GridUI(exampleMap);
+        SaveImage.save(1);
     }
 }
