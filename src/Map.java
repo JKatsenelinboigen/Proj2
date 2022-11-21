@@ -79,7 +79,7 @@ class Cell{
         return this.type == CellType.B;
     }
 
-    public Cell randomCellWithProbabilities(){
+    public static Cell randomCellWithProbabilities(){
 
         final Random r = new Random();
 
