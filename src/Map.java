@@ -71,6 +71,8 @@ class Cell{
     
     public CellType type;
 
+    public float probability;
+
     public int row, col;
 
     public boolean isBlocked(){
