@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.*;
-
-import javafx.geometry.Point2D;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.WindowEvent;
 import java.awt.event.*;
 
