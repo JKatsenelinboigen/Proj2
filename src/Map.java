@@ -10,7 +10,25 @@ public class Map {
     private ArrayList<ArrayList<Cell>> cells;
 
     private ArrayList<ArrayList<Cell>>  generateRandomCellArray(){
-        return null;
+        
+        ArrayList<ArrayList<Cell>> tempMap = new ArrayList<ArrayList<Cell>>();
+        ArrayList<Cell> nullColumn = new ArrayList<Cell>();
+
+        for (int i = 0; i < rows; i++) nullColumn.add(null);
+        tempMap.add(nullColumn);
+
+        for (int i = 0; i <= this.cols; i++){
+
+            ArrayList<Cell> column = new ArrayList<Cell>();
+            column.add(null);
+
+            for(int j = 1; j <= this.rows; j++){
+                tempMap.get(i).add(Cell.randomCellWithProbabilities());
+            }
+            tempMap.add(column);
+        }
+
+        return tempMap;
     }
 
     public Cell getRandomUnblockedCell(){
@@ -62,7 +80,7 @@ public class Map {
         this.cols = cols;
 
         //+1 because we want to start counting at 1 instead of 0
-        this.cells = generateExampleCellArray();
+        this.cells = generateRandomCellArray();
     }
 }
 
