@@ -35,6 +35,19 @@ public class Traverser{
 
     }
 
+    public float[][] updatePrevProbabilities(ArrayList<ArrayList<Cell>> cellList)
+    {
+        float[][] prev = new float[map.rows][map.cols];
+        for (int i = 1; i <= map.rows; i++)
+        {
+            for (int j = 1; j <= map.cols; j++)
+            {
+                prev[i][j] = map.getCellList().get(i).get(j).probability;
+            }
+        }
+        return prev;
+    }
+
     //update probabilities with a movement
     public void moveAndObserve(Direction direction)
     {
