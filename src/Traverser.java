@@ -5,13 +5,25 @@ import java.util.Random;
 public class Traverser{
 
     ArrayList<Cell> groundTruthStates;
+
     Map map;
 
-    //update probabilities with a movement
-    public void moveAndObserve(Cell c, Direction d)
-    {
-        map.getCellList()
+    private Cell getTrueLocation(){
+        return groundTruthStates.get(groundTruthStates.size() - 1) ;
     }
+
+    //update probabilities with a movement
+    public void moveAndObserve(Direction[] directions)
+    {
+
+        for (Direction move : directions){
+
+            this.moveCell(move);
+            CellType observed = this.observeCell(getTrueLocation());
+        }
+    }
+
+    
 
     //given a cell, determine its type with 90% probability of 
     //being correct and each wrong option having a 5% probability
@@ -37,16 +49,18 @@ public class Traverser{
         }
     }
 
-    public void moveCell(Cell c, Direction d)
+    public void moveCell(Direction d)
     {
         final Random r = new Random();
         boolean moves = r.nextDouble() < 0.9 ? true : false;
         
+        Cell trueLocation = this.getTrueLocation();
         
         if (moves)
         {  
-            int row = c.getRow();
-            int col = c.getCol();
+            int row = trueLocation.getRow();
+            int col = trueLocation.getCol();
+
             if (d == Direction.Up)
                 row--;
             else if (d == Direction.Down)
@@ -57,11 +71,14 @@ public class Traverser{
                 col++;
             
             Cell n = map.getCell(row, col);
-            if (n != null && !n.isBlocked())            
+            if (n != null && !n.isBlocked())    
+                
+                //movement succeeded
                 groundTruthStates.add(n);
                 return;
         }
-        groundTruthStates.add(c);
+        //movement failed. re-add old location
+        groundTruthStates.add(trueLocation);
 
     }
 }

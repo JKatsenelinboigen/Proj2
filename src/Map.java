@@ -24,6 +24,9 @@ public class Map {
 
             for(int j = 1; j <= this.rows; j++){
                 tempMap.get(i).add(Cell.randomCellWithProbabilities());
+                
+                tempMap.get(i).get(j).row = j;
+                tempMap.get(i).get(j).col = i;
             }
             tempMap.add(column);
         }
