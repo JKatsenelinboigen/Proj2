@@ -17,16 +17,20 @@ public class Map {
         for (int i = 0; i < rows; i++) nullColumn.add(null);
         tempMap.add(nullColumn);
 
-        for (int i = 0; i <= this.cols; i++){
+        for (int i = 1; i <= this.cols; i++){
 
             ArrayList<Cell> column = new ArrayList<Cell>();
             column.add(null);
 
             for(int j = 1; j <= this.rows; j++){
-                tempMap.get(i).add(Cell.randomCellWithProbabilities());
+
+                System.out.println(i + " " + j);
+
+                column.add(Cell.randomCellWithProbabilities());
                 
-                tempMap.get(i).get(j).row = j;
-                tempMap.get(i).get(j).col = i;
+                
+                column.get(j).row = j;
+                column.get(j).col = i;
             }
             tempMap.add(column);
         }

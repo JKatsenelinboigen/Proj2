@@ -57,10 +57,14 @@ public class GridUI extends Frame{
         for(int i = 0; i < cols; i++){
             for(int j = 0; j < rows; j++){
                 
-                CellType cType = this.mapToRender.getCell(j+1, i+1).type;
+                Cell c = this.mapToRender.getCell(j+1, i+1);
 
-                GRAPHICS.setColor(cellColors.get(cType));
+                GRAPHICS.setColor(cellColors.get(c.type));
                 GRAPHICS.fillRect(this.BLOCK_SIZE*i, this.BLOCK_SIZE*j, this.BLOCK_SIZE, this.BLOCK_SIZE);
+
+                GRAPHICS.setColor(Color.BLACK);
+                // GRAPHICS.setFont(new Font(24.0f));
+                GRAPHICS.drawString(c.probability + "", this.BLOCK_SIZE*i, this.BLOCK_SIZE*j);
             }
         }
     }    

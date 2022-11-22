@@ -49,16 +49,14 @@ public class Traverser{
     }
 
     //update probabilities with a movement
-    public void moveAndObserve(Direction direction)
+    public void moveAndObserve(Cell c, Direction direction)
     {
 
         this.moveCellWithUncertainty(direction);
         CellType observed = this.observeCell(getTrueLocation());
 
     
-        Cell c = map.getCell(j, i);
-
-        if (direction == Direction.Up)
+        if (direction == Direction.Up){
 
             for(int i = 1; i <= map.rows; i++)
             {
@@ -77,6 +75,7 @@ public class Traverser{
                     }
                 }
             }
+        }
             
             //bottom cells *.1
             //cells above blocked cells * .1
@@ -85,13 +84,9 @@ public class Traverser{
 
             // isValidMove(c, direction.op);
 
-            continue;
-        else if (direction == Direction.Down)
-            continue;
-        else if (direction == Direction.Left)
-            continue;
-        else if (direction == Direction.Right)
-            continue;
+        else if (direction == Direction.Down);
+        else if (direction == Direction.Left);
+        else if (direction == Direction.Right);
 
         // if(isValidMove(c, direction)){
         //     c.probability = c.probability * 0.1f;
@@ -99,7 +94,9 @@ public class Traverser{
 
     }
 
-    public Cell getSource()
+    public Cell getSource(){
+        return null;
+    }
 
     //given a cell, determine its type with 90% probability of 
     //being correct and each wrong option having a 5% probability
@@ -182,19 +179,17 @@ enum Direction{
 
             case Down:
                 return Up;
-                break;
             
             case Up:
                 return Down;
-                break;
             
             case Left:
                 return Right;
-                break;
             
             case Right:
                 return Left;
-                break;
         }
+
+        return null;
     }
 }

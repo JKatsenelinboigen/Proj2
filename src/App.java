@@ -7,10 +7,10 @@ public class App {
 
         Direction.generateRandomDirectionsList(5);
 
-        Map exampleMap = new Map(3, 3);
+        Map exampleMap = new Map(24, 24);
 
         System.out.println(exampleMap.getCellList().toString());
         GridUI renderer = new GridUI(exampleMap);
-        SaveImage.save(1);
+        // SaveImage.save(1);
     }
 }
