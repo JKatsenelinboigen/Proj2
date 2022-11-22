@@ -7,8 +7,15 @@ public class Traverser{
     ArrayList<Cell> groundTruthStates;
     Map map;
 
+    //update probabilities with a movement
+    public void moveAndObserve(Cell c, Direction d)
+    {
+        map.getCellList()
+    }
+
     //given a cell, determine its type with 90% probability of 
     //being correct and each wrong option having a 5% probability
+
     public CellType observeCell(Cell c){
         
         final Random r = new Random();
@@ -34,6 +41,7 @@ public class Traverser{
     {
         final Random r = new Random();
         boolean moves = r.nextDouble() < 0.9 ? true : false;
+        
         
         if (moves)
         {  

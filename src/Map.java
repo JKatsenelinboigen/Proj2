@@ -31,6 +31,20 @@ public class Map {
         return tempMap;
     }
 
+    public void setInitialProbabilities()
+    {
+        int unblocked = getNumberUnblocked();
+        for (ArrayList<Cell> a : cells)
+        {
+            for (Cell c: a)
+            {
+                if (c != null && c.type != CellType.B)
+                {
+                    c.probability = 1/(unblocked);
+                }
+            }     
+        }
+    }
     public Cell getRandomUnblockedCell(){
 
         final Random r = new Random();
@@ -82,6 +96,23 @@ public class Map {
         //+1 because we want to start counting at 1 instead of 0
         this.cells = generateRandomCellArray();
     }
+
+    private int getNumberUnblocked()
+    {
+        int count = 0;
+        for (ArrayList<Cell> a : cells)
+        {
+            for (Cell c: a)
+            {
+                if (c != null && c.type != CellType.B)
+                {
+                    count++;
+                }
+            }
+            
+        }
+        return count;
+    }
 }
 
 
@@ -114,6 +145,7 @@ class Cell{
 
     public Cell(CellType type){
         this.type = type;
+        this.probability = 0;
     }
 
     public int getRow()
