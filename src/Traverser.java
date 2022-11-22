@@ -42,32 +42,48 @@ public class Traverser{
         this.moveCellWithUncertainty(direction);
         CellType observed = this.observeCell(getTrueLocation());
 
-        for(int i = 1; i <= map.cols; i++){
-            for (int j = 1; j <= map.rows; j++){
+    
+        Cell c = map.getCell(j, i);
 
-                Cell c = map.getCell(j, i);
+        if (direction == Direction.Up)
 
-                if (direction == Direction.Up)
-                    //bottom cells *.1
-                    //cells above blocked cells * .1
-                    //top cells = 100%
-                    //cells below blocked cells = 100%
-
-                    // isValidMove(c, direction.op);
-
-                    continue;
-                else if (direction == Direction.Down)
-                    continue;
-                else if (direction == Direction.Left)
-                    continue;
-                else if (direction == Direction.Right)
-                    continue;
-
-                // if(isValidMove(c, direction)){
-                //     c.probability = c.probability * 0.1f;
-                // }
+            for(int i = 1; i <= map.rows; i++)
+            {
+                if (isValidMove(c, direction) != null)
+                {
+                     map.getCellList().get(i).get(map.cols).probability = map.getCellList().get(i).get(map.cols).probability * .1f;
+                }
             }
-        }
+            for (int i = 1; i <= map.rows; i++)
+            {
+                for (int j = 1; j <= map.cols - 1; j++)
+                {
+                    if (isValidMove(c, direction) != null)
+                    {
+                        map.getCellList().get(i).get(j).probability = map.getCellList().get(i).get(j).probability * .9f;
+                    }
+                }
+            }
+            
+            //bottom cells *.1
+            //cells above blocked cells * .1
+            //top cells = 100%
+            //cells below blocked cells = 100%
+
+            // isValidMove(c, direction.op);
+
+            continue;
+        else if (direction == Direction.Down)
+            continue;
+        else if (direction == Direction.Left)
+            continue;
+        else if (direction == Direction.Right)
+            continue;
+
+        // if(isValidMove(c, direction)){
+        //     c.probability = c.probability * 0.1f;
+        // }
+
     }
 
     public Cell getSource()
