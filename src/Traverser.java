@@ -9,6 +9,22 @@ public class Traverser{
 
     Map map;
 
+    public Traverser(Map m)
+    {
+        map = m;
+        groundTruthStates = new ArrayList<Cell>();
+        Cell c = map.getRandomUnblockedCell();
+        groundTruthStates.add(c);
+        prevProbabilities = new float[map.rows + 1][map.cols + 1];
+        for (int i = 1; i < map.rows + 1; i++)
+        {
+            for (int j = 1; j < map.cols + 1; j++)
+            {
+                prevProbabilities[i][j] = map.getCell(i, j).probability;
+            }
+        }
+    }
+
     private Cell getTrueLocation(){
         return groundTruthStates.get(groundTruthStates.size() - 1) ;
     }
@@ -38,19 +54,20 @@ public class Traverser{
 
     public float[][] updatePrevProbabilities()
     {
-        float[][] prev = new float[map.rows][map.cols];
+        float[][] prev = new float[map.rows+1][map.cols+1];
         for (int i = 1; i <= map.rows; i++)
         {
             for (int j = 1; j <= map.cols; j++)
             {
-                prev[i][j] = map.getCellList().get(i).get(j).probability;
+                prev[i][j] = map.getCell(i,j).probability;
             }
         }
         return prev;
     }
 
+
     //update probabilities with a movement
-    public void moveAndObserve(Cell c, Direction direction)
+    public void moveAndObserve(Direction direction)
     {
 
         this.moveCellWithUncertainty(direction);
@@ -59,20 +76,30 @@ public class Traverser{
     
         if (direction == Direction.Up)
         {
+            //handles only bottom cells
             for(int i = 1; i <= map.cols; i++)
             {
-                if (isValidMove(c, direction) != null)
+                if (!map.getCellList().get(map.rows - 1).get(i).isBlocked()) //if cell above it is not blocked
                 {
                     map.getCellList().get(map.rows).get(i).probability = prevProbabilities[map.rows][i] * .1f; 
                 }
             }
+            //handles non-bottom cells
             for (int i = 1; i <= map.rows - 1; i++)
             {
-                for (int j = 1; j <= map.cols; j++)
+                for (int j = 1; j <= map.cols - 1; j++)
                 {
-                    if (isValidMove(c, direction) != null)
+                    if ((i-1 > 0 && !map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && !map.getCell(i+1,j).isBlocked())) //if cells above&below not blocked
                     {
-                        map.getCellList().get(i).get(j).probability = (prevProbabilities[i+1][j] * .9f) + (prevProbabilities[i+1][j] * .9f);
+                        map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f) + (prevProbabilities[i+1][j] * .9f);
+                    }
+                    if ((i-1 > 0 && map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && map.getCell(i+1,j).isBlocked()))
+                    {
+
+                    }
+                    else if (i+1 <= map.rows && map.getCell(i+1,j).isBlocked()) //if cell below it is blocked
+                    {
+                        map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f);
                     }
                 }
             }

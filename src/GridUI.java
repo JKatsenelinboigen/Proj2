@@ -64,7 +64,8 @@ public class GridUI extends Frame{
 
                 GRAPHICS.setColor(Color.BLACK);
                 // GRAPHICS.setFont(new Font(24.0f));
-                GRAPHICS.drawString(c.probability + "", this.BLOCK_SIZE*i, this.BLOCK_SIZE*j);
+                System.out.print("row:" + i + "col" + j);
+                GRAPHICS.drawString(i + "," + j + "", this.BLOCK_SIZE*i+5, this.BLOCK_SIZE*j+5);
             }
         }
     }    
