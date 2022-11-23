@@ -5,6 +5,7 @@ import java.util.Random;
 public class Traverser{
 
     ArrayList<Cell> groundTruthStates;
+    float[][] prevProbabilities;
 
     Map map;
 
@@ -35,7 +36,7 @@ public class Traverser{
 
     }
 
-    public float[][] updatePrevProbabilities(ArrayList<ArrayList<Cell>> cellList)
+    public float[][] updatePrevProbabilities()
     {
         float[][] prev = new float[map.rows][map.cols];
         for (int i = 1; i <= map.rows; i++)
@@ -56,22 +57,22 @@ public class Traverser{
         CellType observed = this.observeCell(getTrueLocation());
 
     
-        if (direction == Direction.Up){
-
-            for(int i = 1; i <= map.rows; i++)
+        if (direction == Direction.Up)
+        {
+            for(int i = 1; i <= map.cols; i++)
             {
                 if (isValidMove(c, direction) != null)
                 {
-                     map.getCellList().get(i).get(map.cols).probability = map.getCellList().get(i).get(map.cols).probability * .1f;
+                    map.getCellList().get(map.rows).get(i).probability = prevProbabilities[map.rows][i] * .1f; 
                 }
             }
-            for (int i = 1; i <= map.rows; i++)
+            for (int i = 1; i <= map.rows - 1; i++)
             {
-                for (int j = 1; j <= map.cols - 1; j++)
+                for (int j = 1; j <= map.cols; j++)
                 {
                     if (isValidMove(c, direction) != null)
                     {
-                        map.getCellList().get(i).get(j).probability = map.getCellList().get(i).get(j).probability * .9f;
+                        map.getCellList().get(i).get(j).probability = (prevProbabilities[i+1][j] * .9f) + (prevProbabilities[i+1][j] * .9f);
                     }
                 }
             }
@@ -91,6 +92,7 @@ public class Traverser{
         // if(isValidMove(c, direction)){
         //     c.probability = c.probability * 0.1f;
         // }
+        prevProbabilities = updatePrevProbabilities();
 
     }
 
