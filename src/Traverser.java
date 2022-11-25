@@ -65,6 +65,16 @@ public class Traverser{
         return prev;
     }
 
+    public void iterateMovements(Direction[] directions)
+    {
+        for (int i = 0; i < directions.length; i++)
+        {
+            moveAndObserve(directions[i]);
+            //observation
+            //save image
+        }
+        
+    }
 
     //update probabilities with a movement
     public void moveAndObserve(Direction direction)
