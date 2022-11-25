@@ -1,27 +1,28 @@
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class SaveImage {
-  public static void save(int index) throws Exception {
-    Robot robot = new Robot();
-    int x = 100;
-    int y = 100;
-    int width = 200;
-    int height = 200;
-    Rectangle area = new Rectangle(x, y, width, height);
-    BufferedImage bufferedImage = robot.createScreenCapture(area);
-    String fileName = "Grid";
-
-    // Capture the whole screen
-    area = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-    bufferedImage = robot.createScreenCapture(area);
-    File file = new File(fileName + index + ".png");
-    ImageIO.write(bufferedImage, "png", file);
-
+  public static void save(GridUI grid) throws Exception {
+  
+    BufferedImage bImg = new BufferedImage(grid.GRID_WIDTH, grid.GRID_HEIGHT, BufferedImage.TYPE_INT_RGB);
+    Graphics2D cg = bImg.createGraphics();
+    grid.paint(cg);
+    try {
+            if (ImageIO.write(bImg, "png", new File("./output_image.png")))
+            {
+                System.out.println("-- saved");
+            }
+    } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+    }
+  
   }
 }
