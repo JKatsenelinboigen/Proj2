@@ -65,6 +65,16 @@ public class Traverser{
         return prev;
     }
 
+    public void iterateMovements(Direction[] directions)
+    {
+        for (int i = 0; i < directions.length; i++)
+        {
+            moveAndObserve(directions[i]);
+            //observation
+            //save image
+        }
+        
+    }
 
     //update probabilities with a movement
     public void moveAndObserve(Direction direction)
@@ -87,25 +97,31 @@ public class Traverser{
             //handles non-bottom cells
             for (int i = 1; i <= map.rows - 1; i++)
             {
-                for (int j = 1; j <= map.cols - 1; j++)
+                for (int j = 1; j <= map.cols; j++)
                 {
                     if ((i-1 > 0 && !map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && !map.getCell(i+1,j).isBlocked())) //if cells above&below not blocked
                     {
                         map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f) + (prevProbabilities[i+1][j] * .9f);
                     }
-                    if ((i-1 > 0 && map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && map.getCell(i+1,j).isBlocked())){}
+                    else if ((i-1 > 0 && map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && map.getCell(i+1,j).isBlocked())){} //cell above and below blocked
                     else if (i+1 <= map.rows && map.getCell(i+1,j).isBlocked()) //if cell below it is blocked
                     {
                         map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f);
+                    }
+                    else if (i == 1 || (i+1 <= map.rows && map.getCell(i+1,j).isBlocked()))
+                    {
+                        map.getCell(i,j).probability = (prevProbabilities[i][j]) + (prevProbabilities[i+1][j] * .9f);
+                        System.out.print("I:" + i + "j:" + j);
                     }
                 }
             }
         }
             
-            //bottom cells *.1
-            //cells above blocked cells * .1
-            //top cells = 100% + 90% of moving from below cell
-            //cells below blocked cells = 100% 
+            //bottom cells *.1 x
+            //cells above blocked cells * .1 x
+            //open cell above and below = .1 + .9 x
+            //top cells/cells below blocked cells = 100% + 90% of moving from below cell 
+            //both above and below blocked cells = 100% x
 
             // isValidMove(c, direction.op);
 
