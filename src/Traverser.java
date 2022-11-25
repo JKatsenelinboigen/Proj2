@@ -6,14 +6,16 @@ public class Traverser{
 
     ArrayList<Cell> groundTruthStates;
     float[][] prevProbabilities;
+    GridUI grid;
 
     Map map;
 
-    public Traverser(Map m)
+    public Traverser(Map m, GridUI g)
     {
         map = m;
         groundTruthStates = new ArrayList<Cell>();
         Cell c = map.getRandomUnblockedCell();
+        grid = g;
         groundTruthStates.add(c);
         prevProbabilities = new float[map.rows + 1][map.cols + 1];
         for (int i = 1; i < map.rows + 1; i++)
@@ -72,6 +74,14 @@ public class Traverser{
             moveAndObserve(directions[i]);
             //observation
             //save image
+            // try
+            // {
+            //     SaveImage.save(grid);
+            // }
+            // catch (Exception e)
+            // {
+
+            // }
         }
         
     }
@@ -99,19 +109,18 @@ public class Traverser{
             {
                 for (int j = 1; j <= map.cols; j++)
                 {
-                    if ((i-1 > 0 && !map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && !map.getCell(i+1,j).isBlocked())) //if cells above&below not blocked
+                    if (map.getCell(i,j).isBlocked());
+                    else if ((i-1 > 0 && !map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && !map.getCell(i+1,j).isBlocked())) //if cells above&below not blocked
                     {
                         map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f) + (prevProbabilities[i+1][j] * .9f);
                     }
                     else if ((i-1 > 0 && map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && map.getCell(i+1,j).isBlocked())){} //cell above and below blocked
                     else if (i+1 <= map.rows && map.getCell(i+1,j).isBlocked()) //if cell below it is blocked
                     {
-                        map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f);
                     }
-                    else if (i == 1 || (i+1 <= map.rows && map.getCell(i+1,j).isBlocked()))
+                    else if (i == 1 || (i+1 <= map.rows && map.getCell(i+1,j).isBlocked())) //top cells/cells below blocked cells
                     {
                         map.getCell(i,j).probability = (prevProbabilities[i][j]) + (prevProbabilities[i+1][j] * .9f);
-                        System.out.print("I:" + i + "j:" + j);
                     }
                 }
             }
@@ -125,13 +134,104 @@ public class Traverser{
 
             // isValidMove(c, direction.op);
 
-        else if (direction == Direction.Down);
-        else if (direction == Direction.Left);
-        else if (direction == Direction.Right);
+        else if (direction == Direction.Down)
+        {
+            //handles only top cells
+            for(int i = 1; i <= map.cols; i++)
+            {
+                if (!map.getCellList().get(2).get(i).isBlocked()) //if cell below  it is not blocked
+                {
+                    map.getCellList().get(1).get(i).probability = prevProbabilities[1][i] * .1f; 
+                }
+            }
+            //handles non-top cells
+            for (int i = 2; i <= map.rows; i++)
+            {
+                for (int j = 1; j <= map.cols; j++)
+                {
+                    if (map.getCell(i,j).isBlocked());
+                    else if ((i-1 > 0 && !map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && !map.getCell(i+1,j).isBlocked())) //if cells above&below not blocked
+                    {
+                        map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f) + (prevProbabilities[i-1][j] * .9f);
+                    }
+                    else if ((i-1 > 0 && map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && map.getCell(i+1,j).isBlocked())){} //cell above and below blocked
+                    else if (i-1 > 0 && map.getCell(i-1,j).isBlocked()) //if cell above it is blocked
+                    {
+                    }
+                    else if (i == map.rows || (i-1 > 0 && map.getCell(i-1,j).isBlocked())) //bottom cells/cells above blocked cells
+                    {
+                        map.getCell(i,j).probability = (prevProbabilities[i][j]) + (prevProbabilities[i-1][j] * .9f);
+                    }
+                }
+            }
 
-        // if(isValidMove(c, direction)){
-        //     c.probability = c.probability * 0.1f;
-        // }
+
+        }
+        else if (direction == Direction.Left)
+        {
+             //handles only right cells
+             for(int i = 1; i <= map.rows; i++)
+             {
+                 if (!map.getCellList().get(i).get(map.cols - 1).isBlocked()) //if cell to right of it is not blocked
+                 {
+                     map.getCellList().get(i).get(map.cols).probability = prevProbabilities[i][map.cols] * .1f; 
+                 }
+             }
+             //handles non-right cells
+            for (int i = 1; i <= map.rows; i++)
+            {
+                for (int j = 1; j <= map.cols - 1; j++)
+                {
+                    if (map.getCell(i,j).isBlocked());
+                    else if ((j-1 > 0 && !map.getCell(i,j-1).isBlocked()) && (j+1 <= map.rows && !map.getCell(i,j+1).isBlocked())) //if cells right&left not blocked
+                    {
+                        map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f) + (prevProbabilities[i][j+1] * .9f);
+                    }
+                    else if ((j-1 > 0 && map.getCell(i,j-1).isBlocked()) && (j+1 <= map.rows && map.getCell(i,j+1).isBlocked())){} //cell right&left blocked
+                    else if (j+1 <= map.rows && map.getCell(i,j+1).isBlocked()) //if cell to right of it is blocked
+                    {
+                    }
+                    else if (j == 1 || (j+1 <= map.rows && map.getCell(i,j+1).isBlocked())) //left cells/cells to right of blocked cells
+                    {
+                        map.getCell(i,j).probability = (prevProbabilities[i][j]) + (prevProbabilities[i][j+1] * .9f);
+                    }
+                }
+            }
+
+        }
+        else if (direction == Direction.Right)
+        {
+            //handles only left cells
+            for(int i = 1; i <= map.rows; i++)
+            {
+                if (!map.getCellList().get(i).get(2).isBlocked()) //if cell to right of it is not blocked
+                {
+                    map.getCellList().get(i).get(1).probability = prevProbabilities[i][1] * .1f; 
+                }
+            }
+            //handles non-left cells
+            for (int i = 1; i <= map.rows; i++)
+            {
+                for (int j = 2; j <= map.cols; j++)
+                {
+                    if (map.getCell(i,j).isBlocked());
+                    else if ((j-1 > 0 && !map.getCell(i,j-1).isBlocked()) && (j+1 <= map.rows && !map.getCell(i,j+1).isBlocked())) //if cells right&left not blocked
+                    {
+                        map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f) + (prevProbabilities[i][j-1] * .9f);
+                    }
+                    else if ((j-1 > 0 && map.getCell(i,j-1).isBlocked()) && (j+1 <= map.rows && map.getCell(i,j+1).isBlocked())){} //cell right&left blocked
+                    else if (j-1 > 0 && map.getCell(i,j-1).isBlocked()) //if cell to left of it is blocked
+                    {
+                        //map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f);
+                    }
+                    else if (j == map.cols || (j-1 > 0 && map.getCell(i,j-1).isBlocked())) //right cells/cells to left of blocked cells
+                    {
+                        map.getCell(i,j).probability = (prevProbabilities[i][j]) + (prevProbabilities[i][j-1] * .9f);
+                    }
+                }
+            }
+
+        }
         prevProbabilities = updatePrevProbabilities();
 
     }

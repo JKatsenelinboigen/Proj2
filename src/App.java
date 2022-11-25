@@ -8,12 +8,13 @@ public class App {
         Direction.generateRandomDirectionsList(5);
 
         Map exampleMap = new Map(3, 3);
+        GridUI renderer = new GridUI(exampleMap);
+
 
         System.out.println(exampleMap.getCellList().toString());
-        Traverser t = new Traverser(exampleMap);
-        Direction[] d = {Direction.Up, Direction.Up};
+        Traverser t = new Traverser(exampleMap, renderer);
+        Direction[] d = {Direction.Left};
         t.iterateMovements(d);
-        GridUI renderer = new GridUI(exampleMap);
         // SaveImage.save(1);
     }
 }
