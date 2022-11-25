@@ -53,9 +53,10 @@ public class GridUI extends Frame{
 
         this.BLOCK_SIZE = Math.round((Math.min(GRID_WIDTH, GRID_HEIGHT) / Math.max (cols, rows)) * (float)GRID_SCALING_FACTOR) ;
 
+        int halfBlockPx = Math.round(BLOCK_SIZE/2);
 
-        for(int i = 0; i < cols; i++){
-            for(int j = 0; j < rows; j++){
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
                 
                 Cell c = this.mapToRender.getCell(j+1, i+1);
 
@@ -64,8 +65,8 @@ public class GridUI extends Frame{
 
                 GRAPHICS.setColor(Color.BLACK);
                 // GRAPHICS.setFont(new Font(24.0f));
-                System.out.print("row:" + i + "col" + j);
-                GRAPHICS.drawString(i + "," + j + "", this.BLOCK_SIZE*i+5, this.BLOCK_SIZE*j+5);
+                System.out.println("row:" + i + "col" + j);
+                GRAPHICS.drawString((i+1) + "," + (j+1) + ": " +  c.probability, this.BLOCK_SIZE*i+halfBlockPx, this.BLOCK_SIZE*j+halfBlockPx);
             }
         }
     }    

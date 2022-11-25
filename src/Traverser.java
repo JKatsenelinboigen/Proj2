@@ -93,10 +93,7 @@ public class Traverser{
                     {
                         map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f) + (prevProbabilities[i+1][j] * .9f);
                     }
-                    if ((i-1 > 0 && map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && map.getCell(i+1,j).isBlocked()))
-                    {
-
-                    }
+                    if ((i-1 > 0 && map.getCell(i-1,j).isBlocked()) && (i+1 <= map.rows && map.getCell(i+1,j).isBlocked())){}
                     else if (i+1 <= map.rows && map.getCell(i+1,j).isBlocked()) //if cell below it is blocked
                     {
                         map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f);
@@ -107,8 +104,8 @@ public class Traverser{
             
             //bottom cells *.1
             //cells above blocked cells * .1
-            //top cells = 100%
-            //cells below blocked cells = 100%
+            //top cells = 100% + 90% of moving from below cell
+            //cells below blocked cells = 100% 
 
             // isValidMove(c, direction.op);
 

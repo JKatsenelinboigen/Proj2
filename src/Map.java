@@ -47,7 +47,8 @@ public class Map {
             {
                 if (c != null && c.type != CellType.B)
                 {
-                    c.probability = 1/(unblocked);
+                    c.probability = 1.0f/(unblocked);
+                    
                 }
             }     
         }
@@ -101,7 +102,10 @@ public class Map {
         this.cols = cols;
 
         //+1 because we want to start counting at 1 instead of 0
-        this.cells = generateRandomCellArray();
+        // this.cells = generateRandomCellArray();
+        this.cells = generateExampleCellArray();
+
+        this.setInitialProbabilities();
     }
 
     private int getNumberUnblocked()
