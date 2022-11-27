@@ -27,6 +27,8 @@ public class GridUI extends Frame{
 
         this.mapToRender = mapToRender;
 
+        //gets rid of menu bar
+        setUndecorated(true);
         setSize(GRID_WIDTH,GRID_HEIGHT);
         setVisible(true);
 
@@ -44,6 +46,25 @@ public class GridUI extends Frame{
 
         Graphics2D g2d = (Graphics2D) g;
         paintGrid();
+        paintStrings();
+    }
+
+    public void paintStrings(){
+        
+        int rows = this.mapToRender.rows;
+        int cols = this.mapToRender.cols;
+        int halfBlockPx = Math.round(BLOCK_SIZE/2);
+
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                
+                Cell c = this.mapToRender.getCell(j+1, i+1);
+                GRAPHICS.setColor(Color.BLACK);
+                
+                String probabilityFormatted = (Math.round(c.probability * 10000) / 100.0f) + "%";
+                GRAPHICS.drawString(probabilityFormatted, this.BLOCK_SIZE*(i) + halfBlockPx, this.BLOCK_SIZE*(j) + halfBlockPx);
+            }
+        }
     }
 
     public void paintGrid(){
@@ -66,7 +87,8 @@ public class GridUI extends Frame{
                 GRAPHICS.setColor(Color.BLACK);
                 // GRAPHICS.setFont(new Font(24.0f));
                 System.out.println("row:" + i + "col" + j);
-                GRAPHICS.drawString((i+1) + "," + (j+1) + ": " +  c.probability, this.BLOCK_SIZE*i+halfBlockPx, this.BLOCK_SIZE*j+halfBlockPx);
+
+                String probabilityFormatted = (Math.round(c.probability * 10000) / 100.0f) + "%";
             }
         }
     }    

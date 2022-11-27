@@ -76,7 +76,7 @@ public class Traverser{
             //save image
             try
             {
-                Thread.sleep(100);
+                Thread.sleep(50);
                 SaveImage.save(grid, i);
             }
             catch (Exception e)
@@ -94,7 +94,6 @@ public class Traverser{
         this.moveCellWithUncertainty(direction);
         CellType observed = this.observeCell(getTrueLocation());
 
-    
         if (direction == Direction.Up)
         {
             //handles only bottom cells

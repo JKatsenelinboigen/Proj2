@@ -82,18 +82,18 @@ public class Map {
 
     private static ArrayList<ArrayList<Cell>> generateExampleCellArray(){
 
-        Cell[][] exampleArray ={ 
-            (new Cell[] {null,null,null,null}),
-            (new Cell[] {null, new Cell(CellType.H), new Cell(CellType.B), new Cell(CellType.T)}),
-            (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.N), new Cell(CellType.N)}),
-            (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.B), new Cell(CellType.H)}),
-        };
         // Cell[][] exampleArray ={ 
         //     (new Cell[] {null,null,null,null}),
-        //     (new Cell[] {null, new Cell(CellType.H), new Cell(CellType.H), new Cell(CellType.T)}),
+        //     (new Cell[] {null, new Cell(CellType.H), new Cell(CellType.B), new Cell(CellType.T)}),
         //     (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.N), new Cell(CellType.N)}),
         //     (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.B), new Cell(CellType.H)}),
         // };
+        Cell[][] exampleArray ={ 
+            (new Cell[] {null,null,null,null}),
+            (new Cell[] {null, new Cell(CellType.H), new Cell(CellType.H), new Cell(CellType.T)}),
+            (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.N), new Cell(CellType.N)}),
+            (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.B), new Cell(CellType.H)}),
+        };
 
         ArrayList<ArrayList<Cell>> example2DList = new ArrayList<ArrayList<Cell>>();
         for (Cell[] row : exampleArray){
@@ -108,8 +108,8 @@ public class Map {
         this.cols = cols;
 
         //+1 because we want to start counting at 1 instead of 0
-        // this.cells = generateRandomCellArray();
-        this.cells = generateExampleCellArray();
+        this.cells = generateRandomCellArray();
+        // this.cells = generateExampleCellArray();
 
         this.setInitialProbabilities();
     }
