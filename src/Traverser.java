@@ -74,14 +74,15 @@ public class Traverser{
             moveAndObserve(directions[i]);
             //observation
             //save image
-            // try
-            // {
-            //     SaveImage.save(grid);
-            // }
-            // catch (Exception e)
-            // {
+            try
+            {
+                Thread.sleep(100);
+                SaveImage.save(grid, i);
+            }
+            catch (Exception e)
+            {
 
-            // }
+            }
         }
         
     }
@@ -233,6 +234,7 @@ public class Traverser{
 
         }
         prevProbabilities = updatePrevProbabilities();
+        
 
     }
 

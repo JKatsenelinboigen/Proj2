@@ -3,7 +3,6 @@ public class App {
 
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
 
         Direction.generateRandomDirectionsList(5);
 
@@ -13,7 +12,7 @@ public class App {
 
         System.out.println(exampleMap.getCellList().toString());
         Traverser t = new Traverser(exampleMap, renderer);
-        Direction[] d = {Direction.Left};
+        Direction[] d = {Direction.Right, Direction.Left, Direction.Up, Direction.Up};
         t.iterateMovements(d);
         // SaveImage.save(1);
     }

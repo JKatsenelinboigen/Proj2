@@ -84,10 +84,16 @@ public class Map {
 
         Cell[][] exampleArray ={ 
             (new Cell[] {null,null,null,null}),
-            (new Cell[] {null, new Cell(CellType.H), new Cell(CellType.H), new Cell(CellType.T)}),
+            (new Cell[] {null, new Cell(CellType.H), new Cell(CellType.B), new Cell(CellType.T)}),
             (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.N), new Cell(CellType.N)}),
             (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.B), new Cell(CellType.H)}),
         };
+        // Cell[][] exampleArray ={ 
+        //     (new Cell[] {null,null,null,null}),
+        //     (new Cell[] {null, new Cell(CellType.H), new Cell(CellType.H), new Cell(CellType.T)}),
+        //     (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.N), new Cell(CellType.N)}),
+        //     (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.B), new Cell(CellType.H)}),
+        // };
 
         ArrayList<ArrayList<Cell>> example2DList = new ArrayList<ArrayList<Cell>>();
         for (Cell[] row : exampleArray){
