@@ -27,8 +27,7 @@ public class Map {
                 System.out.println(i + " " + j);
 
                 column.add(Cell.randomCellWithProbabilities());
-                
-                
+
                 column.get(j).row = j;
                 column.get(j).col = i;
             }
@@ -56,13 +55,14 @@ public class Map {
     public Cell getRandomUnblockedCell(){
 
         final Random r = new Random();
-        int randomRow = r.nextInt(this.rows - 1) + 1;
-        int randomCol = r.nextInt(this.cols - 1) + 1;
+        int randomRow = r.nextInt(this.rows) + 1;
+        int randomCol = r.nextInt(this.cols) + 1;
 
-        Cell randomCell = cells.get(randomRow).get(randomCol);
 
-        if(!randomCell.isBlocked()) return randomCell;   
+        Cell randomCell = this.getCell(randomRow, randomCol);
+        if(randomCell != null && !randomCell.isBlocked()) return randomCell;   
         else return getRandomUnblockedCell();
+
     }
 
     public ArrayList<ArrayList<Cell>> getCellList()
@@ -77,7 +77,7 @@ public class Map {
         if (col < 1 || col > cols)
             return null;
 
-        return cells.get(row).get(col);
+        return cells.get(col).get(row);
     }
 
     private static ArrayList<ArrayList<Cell>> generateExampleCellArray(){

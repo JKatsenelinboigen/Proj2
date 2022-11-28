@@ -10,6 +10,13 @@ public class Traverser{
 
     Map map;
 
+    public Traverser(Map m){
+        map = m;
+        groundTruthStates = new ArrayList<Cell>();
+        Cell c = map.getRandomUnblockedCell();
+        groundTruthStates.add(c);
+    }
+
     public Traverser(Map m, GridUI g)
     {
         map = m;
@@ -17,6 +24,7 @@ public class Traverser{
         Cell c = map.getRandomUnblockedCell();
         grid = g;
         groundTruthStates.add(c);
+
         prevProbabilities = new float[map.rows + 1][map.cols + 1];
         for (int i = 1; i < map.rows + 1; i++)
         {
@@ -27,7 +35,7 @@ public class Traverser{
         }
     }
 
-    private Cell getTrueLocation(){
+    public Cell getTrueLocation(){
         return groundTruthStates.get(groundTruthStates.size() - 1) ;
     }
 
@@ -287,11 +295,12 @@ public class Traverser{
                 col++;
             
             Cell n = map.getCell(row, col);
-            if (n != null && !n.isBlocked())    
-                
+            if (n != null && !n.isBlocked()){    
                 //movement succeeded
                 groundTruthStates.add(n);
                 return;
+            }
+        
         }
         //movement failed. re-add old location
         groundTruthStates.add(trueLocation);
