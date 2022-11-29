@@ -2,8 +2,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.xml.namespace.QName;
-
 public class App {
 
     public static void main(String[] args) throws Exception {
