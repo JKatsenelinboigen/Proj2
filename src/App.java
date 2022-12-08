@@ -6,7 +6,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
-        Direction.generateRandomDirectionsList(5);
+        Direction[] directions = Direction.generateRandomDirectionsList(100);
         Map exampleMap = null;
 
         for(int i = 0; i < 10; i++){
@@ -17,6 +17,8 @@ public class App {
             }
         }
         GridUI renderer = new GridUI(exampleMap);
+        Traverser t = new Traverser(exampleMap);
+        t.iterateMovements(directions,);
 
     }
 

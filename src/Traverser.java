@@ -75,11 +75,12 @@ public class Traverser{
         return prev;
     }
 
-    public void iterateMovements(Direction[] directions)
+    public void iterateMovements(Direction[] directions, CellType[] observations)
     {
         for (int i = 0; i < directions.length; i++)
         {
-            moveAndObserve(directions[i]);
+            move(directions[i]);
+            observe(observations[i]);
             //observation
             //save image
             try
@@ -95,12 +96,32 @@ public class Traverser{
         
     }
 
+    public void observe(CellType t)
+    {
+        for (int i = 1; i <= map.rows; i++)
+        {
+            for (int j = 1; j <= map.cols; j++)
+            {
+                if (t == map.getCell(i, j).type)
+                {
+                    map.getCell(i, j).probability = map.getCell(i, j).probability * .9f;   
+                }
+                else
+                {
+                    map.getCell(i, j).probability = map.getCell(i, j).probability * .05f;   
+
+                }
+            }
+        }
+        prevProbabilities = updatePrevProbabilities();
+    }
+
     //update probabilities with a movement
-    public void moveAndObserve(Direction direction)
+    public void move(Direction direction)
     {
 
         this.moveCellWithUncertainty(direction);
-        CellType observed = this.observeCell(getTrueLocation());
+        //CellType observed = this.observeCell(getTrueLocation());
 
         if (direction == Direction.Up)
         {
@@ -241,7 +262,6 @@ public class Traverser{
 
         }
         prevProbabilities = updatePrevProbabilities();
-        
 
     }
 
