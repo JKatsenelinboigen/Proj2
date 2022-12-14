@@ -132,9 +132,9 @@ public class Traverser{
             //handles only bottom cells
             for(int i = 1; i <= map.cols; i++)
             {
-                if (!map.getCellList().get(map.rows - 1).get(i).isBlocked()) //if cell above it is not blocked
+                if (!map.getCell(map.rows-1,i).isBlocked()) //if cell above it is not blocked
                 {
-                    map.getCellList().get(map.rows).get(i).probability = prevProbabilities[map.rows][i] * .1f; 
+                    map.getCell(map.rows,i).probability = prevProbabilities[map.rows][i] * .1f; 
                 }
             }
             //handles non-bottom cells
@@ -172,9 +172,9 @@ public class Traverser{
             //handles only top cells
             for(int i = 1; i <= map.cols; i++)
             {
-                if (!map.getCellList().get(2).get(i).isBlocked()) //if cell below  it is not blocked
+                if (!map.getCell(2,i).isBlocked()) //if cell below  it is not blocked
                 {
-                    map.getCellList().get(1).get(i).probability = prevProbabilities[1][i] * .1f; 
+                    map.getCell(1,i).probability = prevProbabilities[1][i] * .1f; 
                 }
             }
             //handles non-top cells
@@ -205,9 +205,9 @@ public class Traverser{
              //handles only right cells
              for(int i = 1; i <= map.rows; i++)
              {
-                 if (!map.getCellList().get(i).get(map.cols - 1).isBlocked()) //if cell to right of it is not blocked
+                 if (!map.getCell(i,map.cols - 1).isBlocked()) //if cell to right of it is not blocked
                  {
-                     map.getCellList().get(i).get(map.cols).probability = prevProbabilities[i][map.cols] * .1f; 
+                     map.getCell(i,map.cols).probability = prevProbabilities[i][map.cols] * .1f; 
                  }
              }
              //handles non-right cells
@@ -237,9 +237,9 @@ public class Traverser{
             //handles only left cells
             for(int i = 1; i <= map.rows; i++)
             {
-                if (!map.getCellList().get(i).get(2).isBlocked()) //if cell to right of it is not blocked
+                if (!map.getCell(i,2).isBlocked()) //if cell to right of it is not blocked
                 {
-                    map.getCellList().get(i).get(1).probability = prevProbabilities[i][1] * .1f; 
+                    map.getCell(i,1).probability = prevProbabilities[i][1] * .1f; 
                 }
             }
             //handles non-left cells
