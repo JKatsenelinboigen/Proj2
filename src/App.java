@@ -10,7 +10,7 @@ public class App {
 
         ArrayList<Direction> directions = new ArrayList<Direction>();
         ArrayList<CellType> observations = new ArrayList<CellType>();
-         Map exampleMap = new Map(50, 100);
+        Map exampleMap = new Map(3, 3);
 
         // // for(int i = 0; i < 10; i++){
         // //     exampleMap = new Map(50, 100);
@@ -20,15 +20,16 @@ public class App {
         // //     }
         // // }
 
-
+        int initCol, initRow;
         try {
 
-            BufferedReader bufferreader = new BufferedReader(new FileReader("mapFiles/map0file0.txt"));
+            BufferedReader bufferreader = new BufferedReader(new FileReader("3test.txt"));
     
             String line = bufferreader.readLine();
 
             String[] initCoords = line.split(" "); 
-            int initCol = Integer.parseInt(initCoords[0]), initRow = Integer.parseInt(initCoords[1]);
+            initCol = Integer.parseInt(initCoords[0]);
+            initRow = Integer.parseInt(initCoords[1]);
             
             String[] splitLine;
             while ((line = bufferreader.readLine()) != null) {     
@@ -47,7 +48,7 @@ public class App {
 
         
         GridUI renderer = new GridUI(exampleMap);
-        Traverser t = new Traverser(exampleMap, renderer);
+        Traverser t = new Traverser(exampleMap, renderer, initRow, initCol);
         t.iterateMovements(directions, observations);
         
         

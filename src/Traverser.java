@@ -17,11 +17,11 @@ public class Traverser{
         groundTruthStates.add(c);
     }
 
-    public Traverser(Map m, GridUI g)
+    public Traverser(Map m, GridUI g, int initRow, int initCol)
     {
         map = m;
         groundTruthStates = new ArrayList<Cell>();
-        Cell c = map.getRandomUnblockedCell();
+        Cell c = map.getCell(initRow, initCol);
         grid = g;
         groundTruthStates.add(c);
 
@@ -83,13 +83,14 @@ public class Traverser{
         {
             move(directions.get(i));
             observe(observations.get(i));
-            grid.paintGrid();
-            grid.repaint();
+            // grid.paintGrid();
+  
             //observation
             //save image
             try
             {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
+                grid.repaint();
                 // SaveImage.save(grid, i);
             }
             catch (Exception e)

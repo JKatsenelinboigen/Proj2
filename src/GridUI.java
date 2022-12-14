@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.*;
 // import javafx.stage.WindowEvent;
 import java.awt.event.*;
@@ -82,20 +85,24 @@ public class GridUI extends Frame{
                 Cell c = this.mapToRender.getCell(i+1, j+1);
 
                 // GRAPHICS.setColor(cellColors.get(c.type));
-                
-                GRAPHICS.setColor(this.getGradientFromProbability(c.probability));
-                // System.out.println(c.probability);
+                System.out.println(c.col + " " + c.row);
+                GRAPHICS.setColor(getGradientFromProbability(c.probability));   
                 GRAPHICS.fillRect(this.BLOCK_SIZE*j, this.BLOCK_SIZE*i, this.BLOCK_SIZE, this.BLOCK_SIZE);
 
-                GRAPHICS.setColor(Color.BLACK);
+                // GRAPHICS.setColor(Color.BLACK);
                 // GRAPHICS.setFont(new Font(24.0f));
                 //System.out.println("row:" + i + "col" + j);
 
                 String probabilityFormatted = (Math.round(c.probability * 10000) / 100.0f) + "%";
-
+                //GRAPHICS.drawString(probabilityFormatted, this.BLOCK_SIZE*());
 
             }
         }
+
+        // Cell trueCell = 
+
+        // GRAPHICS.setColor(Color.green);
+        // GRAPHICS.fillRect(this.BLOCK_SIZE*, rows, cols, halfBlockPx);
     }    
 
     private Color getGradientFromProbability(float probability){
@@ -107,9 +114,11 @@ public class GridUI extends Frame{
             }
         }
 
-        int colorVal = (int)(255 * probability/maxProb) ;
+        
 
-        // System.out.println(maxProb);
+        int colorVal = (int)(255 * probability/maxProb) ;
+        System.out.println(probability);
+        System.out.println(new Color(colorVal, colorVal, colorVal));
         return new Color(colorVal, colorVal, colorVal);
 
     }
