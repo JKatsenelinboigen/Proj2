@@ -81,17 +81,38 @@ public class GridUI extends Frame{
                 
                 Cell c = this.mapToRender.getCell(i+1, j+1);
 
-                GRAPHICS.setColor(cellColors.get(c.type));
+                // GRAPHICS.setColor(cellColors.get(c.type));
+                
+                GRAPHICS.setColor(this.getGradientFromProbability(c.probability));
+                // System.out.println(c.probability);
                 GRAPHICS.fillRect(this.BLOCK_SIZE*j, this.BLOCK_SIZE*i, this.BLOCK_SIZE, this.BLOCK_SIZE);
 
                 GRAPHICS.setColor(Color.BLACK);
                 // GRAPHICS.setFont(new Font(24.0f));
-                System.out.println("row:" + i + "col" + j);
+                //System.out.println("row:" + i + "col" + j);
 
                 String probabilityFormatted = (Math.round(c.probability * 10000) / 100.0f) + "%";
+
+
             }
         }
     }    
+
+    private Color getGradientFromProbability(float probability){
+
+        float maxProb = -1;
+        for(ArrayList<Cell> ac : this.mapToRender.getCellList()){
+            for (Cell c : ac){
+                if(c != null) maxProb = Math.max(c.probability, maxProb);
+            }
+        }
+
+        int colorVal = (int)(255 * probability/maxProb) ;
+
+        // System.out.println(maxProb);
+        return new Color(colorVal, colorVal, colorVal);
+
+    }
 
 }
 

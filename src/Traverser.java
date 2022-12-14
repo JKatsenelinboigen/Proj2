@@ -75,18 +75,22 @@ public class Traverser{
         return prev;
     }
 
-    public void iterateMovements(Direction[] directions, CellType[] observations)
+    public void iterateMovements(ArrayList<Direction> directions, ArrayList<CellType> observations)//, CellType[] observations)
     {
-        for (int i = 0; i < directions.length; i++)
+
+        
+        for (int i = 0; i < directions.size(); i++)
         {
-            move(directions[i]);
-            observe(observations[i]);
+            move(directions.get(i));
+            observe(observations.get(i));
+            grid.paintGrid();
+            grid.repaint();
             //observation
             //save image
             try
             {
-                Thread.sleep(50);
-                SaveImage.save(grid, i);
+                Thread.sleep(5000);
+                // SaveImage.save(grid, i);
             }
             catch (Exception e)
             {
@@ -344,6 +348,25 @@ enum Direction{
         }
 
         return directions;
+    }
+
+    public static Direction directionFromLetter(String s){
+
+        switch (s){
+            case "D":
+            return Down;
+
+            case "U":
+            return Up;
+
+            case "L":
+            return Left;
+
+            case "R":
+            return Right;
+        }
+
+        return null;
     }
 
     public Direction opposDirection(Direction d){
