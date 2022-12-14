@@ -9,13 +9,6 @@
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "App"
-        },
-        {
-            "type": "java",
-            "name": "Launch App",
-            "request": "launch",
-            "mainClass": "App",
-            "projectName": "Proj2_a7a494ee"
         }
     ]
 }

@@ -46,7 +46,7 @@ public class GridUI extends Frame{
 
         Graphics2D g2d = (Graphics2D) g;
         paintGrid();
-        paintStrings();
+        // paintStrings();
     }
 
     public void paintStrings(){
@@ -79,10 +79,10 @@ public class GridUI extends Frame{
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < cols; j++){
                 
-                Cell c = this.mapToRender.getCell(j+1, i+1);
+                Cell c = this.mapToRender.getCell(i+1, j+1);
 
                 GRAPHICS.setColor(cellColors.get(c.type));
-                GRAPHICS.fillRect(this.BLOCK_SIZE*i, this.BLOCK_SIZE*j, this.BLOCK_SIZE, this.BLOCK_SIZE);
+                GRAPHICS.fillRect(this.BLOCK_SIZE*j, this.BLOCK_SIZE*i, this.BLOCK_SIZE, this.BLOCK_SIZE);
 
                 GRAPHICS.setColor(Color.BLACK);
                 // GRAPHICS.setFont(new Font(24.0f));
