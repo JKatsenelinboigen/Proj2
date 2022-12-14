@@ -31,6 +31,7 @@ public class Traverser{
             for (int j = 1; j < map.cols + 1; j++)
             {
                 prevProbabilities[i][j] = map.getCell(i, j).probability;
+                // System.out.println(map.getCell(i, j).probability);
             }
         }
     }
@@ -84,13 +85,26 @@ public class Traverser{
             move(directions.get(i));
             observe(observations.get(i));
             // grid.paintGrid();
+
+            System.out.print("True: " + this.getTrueLocation().row + " "  + this.getTrueLocation().col + " ");
+            Cell maxProb = new Cell(CellType.N);
+            for(ArrayList<Cell> ac : this.map.getCellList()){
+                for (Cell c : ac){
+                    if(c != null){
+                        if(c.probability > maxProb.probability){
+                            maxProb = c;
+                        }
+                    }
+                }
+            }
+            System.out.println(": " + maxProb.row + " " + maxProb.col);
   
             //observation
             //save image
             try
             {
-                Thread.sleep(1000);
-                grid.repaint();
+                // Thread.sleep(1000);
+                // grid.repaint();
                 // SaveImage.save(grid, i);
             }
             catch (Exception e)
@@ -98,6 +112,7 @@ public class Traverser{
 
             }
         }
+
         
     }
 

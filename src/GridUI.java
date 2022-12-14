@@ -85,7 +85,7 @@ public class GridUI extends Frame{
                 Cell c = this.mapToRender.getCell(i+1, j+1);
 
                 // GRAPHICS.setColor(cellColors.get(c.type));
-                System.out.println(c.col + " " + c.row);
+                // System.out.println(c.col + " " + c.row);
                 GRAPHICS.setColor(getGradientFromProbability(c.probability));   
                 GRAPHICS.fillRect(this.BLOCK_SIZE*j, this.BLOCK_SIZE*i, this.BLOCK_SIZE, this.BLOCK_SIZE);
 
@@ -117,8 +117,8 @@ public class GridUI extends Frame{
         
 
         int colorVal = (int)(255 * probability/maxProb) ;
-        System.out.println(probability);
-        System.out.println(new Color(colorVal, colorVal, colorVal));
+        // System.out.println(probability);
+        // System.out.println(new Color(colorVal, colorVal, colorVal));
         return new Color(colorVal, colorVal, colorVal);
 
     }

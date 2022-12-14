@@ -10,7 +10,7 @@ public class App {
 
         ArrayList<Direction> directions = new ArrayList<Direction>();
         ArrayList<CellType> observations = new ArrayList<CellType>();
-        Map exampleMap = new Map(3, 3);
+        Map exampleMap = new Map(50, 100);
 
         // // for(int i = 0; i < 10; i++){
         // //     exampleMap = new Map(50, 100);
@@ -19,11 +19,16 @@ public class App {
         // //         moveAndObserveGivenMap(exampleMap, j, i);
         // //     }
         // // }
+        
+        readFileAndIterate(directions, observations, exampleMap);
 
+    }
+
+    public static void readFileAndIterate(ArrayList<Direction> directions, ArrayList<CellType> observations, Map exampleMap) throws Exception{
         int initCol, initRow;
         try {
 
-            BufferedReader bufferreader = new BufferedReader(new FileReader("3test.txt"));
+            BufferedReader bufferreader = new BufferedReader(new FileReader("mapFiles/map0file0.txt"));
     
             String line = bufferreader.readLine();
 
@@ -46,13 +51,12 @@ public class App {
             throw e;
         }
 
+
         
         GridUI renderer = new GridUI(exampleMap);
         Traverser t = new Traverser(exampleMap, renderer, initRow, initCol);
         t.iterateMovements(directions, observations);
-        
-        
-
+               
     }
 
     public static void moveAndObserveGivenMap(Map exampleMap, int iteration, int mapNumber){

@@ -1,6 +1,9 @@
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
+
+import javax.transaction.TransactionRequiredException;
+
 import java.util.ArrayList;
 
 public class Map {
@@ -24,7 +27,7 @@ public class Map {
 
             for(int j = 1; j <= this.rows; j++){
 
-                System.out.println(i + " " + j);
+                // System.out.println(i + " " + j);
 
                 column.add(Cell.randomCellWithProbabilities());
 
@@ -94,6 +97,14 @@ public class Map {
             (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.N), new Cell(CellType.N)}),
             (new Cell[] {null, new Cell(CellType.N), new Cell(CellType.B), new Cell(CellType.H)}),
         };
+
+        Cell[][] transposed = new Cell[4][4];
+
+        for(int i = 0; i < exampleArray.length; i++){
+            for(int j = 0; j < exampleArray[i].length; j++){
+                transposed[i][j] = exampleArray[j][i];
+            }
+        }
 
         ArrayList<ArrayList<Cell>> example2DList = new ArrayList<ArrayList<Cell>>();
         for (Cell[] row : exampleArray){
