@@ -103,6 +103,7 @@ public class Traverser{
 
     public void observe(CellType t)
     {
+        float sum = 0.0f;
         for (int i = 1; i <= map.rows; i++)
         {
             for (int j = 1; j <= map.cols; j++)
@@ -116,6 +117,14 @@ public class Traverser{
                     map.getCell(i, j).probability = map.getCell(i, j).probability * .05f;   
 
                 }
+                sum +=  map.getCell(i, j).probability;
+            }
+        }
+        for (int i = 1; i <= map.rows; i++)
+        {
+            for (int j = 1; j <= map.cols; j++)
+            {    
+                map.getCell(i, j).probability = map.getCell(i, j).probability / sum;   
             }
         }
         prevProbabilities = updatePrevProbabilities();
