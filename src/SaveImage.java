@@ -6,13 +6,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class SaveImage {
-  public static void save(GridUI grid, int iteration) throws Exception {
+  public static void save(GridUI grid, int iteration, String ext) throws Exception {
   
     BufferedImage bImg = new BufferedImage(grid.GRID_WIDTH, grid.GRID_HEIGHT, BufferedImage.TYPE_INT_RGB);
     Graphics2D cg = bImg.createGraphics();
     grid.paint(cg);
     try {
-            if (ImageIO.write(bImg, "png", new File("./output/output_image" + iteration + ".png")))
+            if (ImageIO.write(bImg, "png", new File("./output/output_image" + ext + iteration + ".png")))
             {
                 System.out.println("-- saved");
             }
