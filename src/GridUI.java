@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javafx.scene.canvas.GraphicsContext;
-
 import java.awt.*;
 // import javafx.stage.WindowEvent;
 import java.awt.event.*;

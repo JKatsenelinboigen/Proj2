@@ -104,9 +104,12 @@ public class Traverser{
             //save image
             try
             {
-                Thread.sleep(10);
-                grid.repaint();
-                // SaveImage.save(grid, i);
+                // Thread.sleep(1000);
+                // grid.repaint();
+                if (i == 10 || i == 50 || i == 100)
+                {
+                    SaveImage.save(grid, i, "HeatMaps");
+                }
             }
             catch (Exception e)
             {

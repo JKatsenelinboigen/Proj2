@@ -2,8 +2,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
-import javax.transaction.TransactionRequiredException;
-
 import java.util.ArrayList;
 
 public class Map {
