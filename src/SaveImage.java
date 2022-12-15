@@ -12,7 +12,7 @@ public class SaveImage {
     Graphics2D cg = bImg.createGraphics();
     grid.paint(cg);
     try {
-            if (ImageIO.write(bImg, "png", new File("./output/output_image" + ext + iteration + ".png")))
+            if (ImageIO.write(bImg, "png", new File(ext + iteration + ".png")))
             {
                 System.out.println("-- saved");
             }
