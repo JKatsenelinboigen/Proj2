@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javafx.scene.canvas.GraphicsContext;
-
 import java.awt.*;
 // import javafx.stage.WindowEvent;
 import java.awt.event.*;
@@ -94,8 +91,27 @@ public class GridUI extends Frame{
                 //System.out.println("row:" + i + "col" + j);
 
                 String probabilityFormatted = (Math.round(c.probability * 10000) / 100.0f) + "%";
+                // System.out.println(c);
                 //GRAPHICS.drawString(probabilityFormatted, this.BLOCK_SIZE*());
 
+            }
+        }
+
+        //draw rect outlines and blocked cells
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                 // System.out.println(c.col + " " + c.row);
+                
+                Cell c = this.mapToRender.getCell(i+1, j+1);                 
+                if(c.isBlocked()){
+                    GRAPHICS.setColor(Color.red);
+                    GRAPHICS.fillRect(this.BLOCK_SIZE*j, this.BLOCK_SIZE*i, this.BLOCK_SIZE, this.BLOCK_SIZE);
+                }
+                
+                
+                GRAPHICS.setColor(Color.black);   
+                GRAPHICS.drawRect(this.BLOCK_SIZE*j, this.BLOCK_SIZE*i, this.BLOCK_SIZE, this.BLOCK_SIZE);
+                
             }
         }
 

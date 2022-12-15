@@ -78,10 +78,10 @@ public class Traverser{
 
     public void iterateMovements(ArrayList<Direction> directions, ArrayList<CellType> observations)//, CellType[] observations)
     {
-
         
         for (int i = 0; i < directions.size(); i++)
         {
+            // System.out.println("iterating ree " + i);
             move(directions.get(i));
             observe(observations.get(i));
             // grid.paintGrid();
@@ -95,9 +95,10 @@ public class Traverser{
                             maxProb = c;
                         }
                     }
+                    // System.out.println(c);
                 }
             }
-            System.out.println(": " + maxProb.row + " " + maxProb.col);
+             System.out.println(": " + maxProb.row + " " + maxProb.col);
   
             //observation
             //save image
@@ -112,7 +113,7 @@ public class Traverser{
             }
             catch (Exception e)
             {
-
+                e.printStackTrace();
             }
         }
 
@@ -244,15 +245,15 @@ public class Traverser{
                 for (int j = 1; j <= map.cols - 1; j++)
                 {
                     if (map.getCell(i,j).isBlocked());
-                    else if ((j-1 > 0 && !map.getCell(i,j-1).isBlocked()) && (j+1 <= map.rows && !map.getCell(i,j+1).isBlocked())) //if cells right&left not blocked
+                    else if ((j-1 > 0 && !map.getCell(i,j-1).isBlocked()) && (j+1 <= map.cols && !map.getCell(i,j+1).isBlocked())) //if cells right&left not blocked
                     {
                         map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f) + (prevProbabilities[i][j+1] * .9f);
                     }
-                    else if ((j-1 > 0 && map.getCell(i,j-1).isBlocked()) && (j+1 <= map.rows && map.getCell(i,j+1).isBlocked())){} //cell right&left blocked
-                    else if (j+1 <= map.rows && map.getCell(i,j+1).isBlocked()) //if cell to right of it is blocked
+                    else if ((j-1 > 0 && map.getCell(i,j-1).isBlocked()) && (j+1 <= map.cols && map.getCell(i,j+1).isBlocked())){} //cell right&left blocked
+                    else if (j+1 <= map.cols && map.getCell(i,j+1).isBlocked()) //if cell to right of it is blocked
                     {
                     }
-                    else if (j == 1 || (j+1 <= map.rows && map.getCell(i,j+1).isBlocked())) //left cells/cells to right of blocked cells
+                    else if (j == 1 || (j+1 <= map.cols && map.getCell(i,j+1).isBlocked())) //left cells/cells to right of blocked cells
                     {
                         map.getCell(i,j).probability = (prevProbabilities[i][j]) + (prevProbabilities[i][j+1] * .9f);
                     }
@@ -276,11 +277,11 @@ public class Traverser{
                 for (int j = 2; j <= map.cols; j++)
                 {
                     if (map.getCell(i,j).isBlocked());
-                    else if ((j-1 > 0 && !map.getCell(i,j-1).isBlocked()) && (j+1 <= map.rows && !map.getCell(i,j+1).isBlocked())) //if cells right&left not blocked
+                    else if ((j-1 > 0 && !map.getCell(i,j-1).isBlocked()) && (j+1 <= map.cols && !map.getCell(i,j+1).isBlocked())) //if cells right&left not blocked
                     {
                         map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f) + (prevProbabilities[i][j-1] * .9f);
                     }
-                    else if ((j-1 > 0 && map.getCell(i,j-1).isBlocked()) && (j+1 <= map.rows && map.getCell(i,j+1).isBlocked())){} //cell right&left blocked
+                    else if ((j-1 > 0 && map.getCell(i,j-1).isBlocked()) && (j+1 <= map.cols && map.getCell(i,j+1).isBlocked())){} //cell right&left blocked
                     else if (j-1 > 0 && map.getCell(i,j-1).isBlocked()) //if cell to left of it is blocked
                     {
                         //map.getCell(i,j).probability = (prevProbabilities[i][j] * .1f);

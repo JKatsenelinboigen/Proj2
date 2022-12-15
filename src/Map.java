@@ -2,8 +2,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
-import javax.transaction.TransactionRequiredException;
-
 import java.util.ArrayList;
 
 public class Map {
@@ -12,12 +10,12 @@ public class Map {
 
     private ArrayList<ArrayList<Cell>> cells;
 
-    private ArrayList<ArrayList<Cell>>  generateRandomCellArray(){
+    public ArrayList<ArrayList<Cell>> generateRandomCellArray(){
         
         ArrayList<ArrayList<Cell>> tempMap = new ArrayList<ArrayList<Cell>>();
         ArrayList<Cell> nullColumn = new ArrayList<Cell>();
 
-        for (int i = 0; i < rows; i++) nullColumn.add(null);
+        for (int i = 0; i < rows + 1; i++) nullColumn.add(null);
         tempMap.add(nullColumn);
 
         for (int i = 1; i <= this.cols; i++){
@@ -27,12 +25,33 @@ public class Map {
 
             for(int j = 1; j <= this.rows; j++){
 
-                // System.out.println(i + " " + j);
+                Cell c = Cell.randomCellWithProbabilities();
+                c.row = j;
+                c.col = i;
 
-                column.add(Cell.randomCellWithProbabilities());
+                column.add(c);
+            }
+            tempMap.add(column);
+        }
 
-                column.get(j).row = j;
-                column.get(j).col = i;
+        return tempMap;
+    }
+
+    private ArrayList<ArrayList<Cell>>  generateNullCellArray(){
+        
+        ArrayList<ArrayList<Cell>> tempMap = new ArrayList<ArrayList<Cell>>();
+        ArrayList<Cell> nullColumn = new ArrayList<Cell>();
+
+        for (int i = 0; i < rows + 1; i++) nullColumn.add(null);
+        tempMap.add(nullColumn);
+
+        for (int i = 1; i <= this.cols; i++){
+
+            ArrayList<Cell> column = new ArrayList<Cell>();
+            column.add(null);
+
+            for(int j = 1; j <= this.rows; j++){
+                column.add(null);
             }
             tempMap.add(column);
         }
@@ -50,7 +69,7 @@ public class Map {
                 if (c != null && c.type != CellType.B)
                 {
                     c.probability = 1.0f/(unblocked);
-                    
+                    //a
                 }
             }     
         }
@@ -72,6 +91,10 @@ public class Map {
     {
         return cells;
     }
+    public void setCellList(ArrayList<ArrayList<Cell>> cells)
+    {
+        this.cells = cells;
+    }
 
     public Cell getCell(int row, int col)
     {  
@@ -81,6 +104,11 @@ public class Map {
             return null;
 
         return cells.get(col).get(row);
+    }
+
+    public void setCell(Cell c){
+        // System.out.println(c);
+        this.cells.get(c.col).set(c.row, c);
     }
 
     private static ArrayList<ArrayList<Cell>> generateExampleCellArray(){
@@ -119,10 +147,7 @@ public class Map {
         this.cols = cols;
 
         //+1 because we want to start counting at 1 instead of 0
-        this.cells = generateRandomCellArray();
-        // this.cells = generateExampleCellArray();
-
-        this.setInitialProbabilities();
+        this.cells = this.generateNullCellArray();
     }
 
     private int getNumberUnblocked()
@@ -152,6 +177,12 @@ class Cell{
 
     public int row, col;
 
+    public String toString(){
+        String s = "[" + this.row + ","  + this.col + "]: " + this.type + " & " + this.probability;
+
+        return s;
+    }
+
     public boolean isBlocked(){
         return this.type == CellType.B;
     }
@@ -174,6 +205,13 @@ class Cell{
     public Cell(CellType type){
         this.type = type;
         this.probability = 0;
+    }
+    public Cell(int row, int col, CellType type){
+        this.type = type;
+        this.probability = 0;
+
+        this.row = row;
+        this.col = col;
     }
 
     public int getRow()
