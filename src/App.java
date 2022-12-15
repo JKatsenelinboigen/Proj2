@@ -12,22 +12,17 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         Map exampleMap = loadMapFile("map1.txt");
-        // exampleMap.setCellList(exampleMap.generateRandomCellArray());
-        
-        // writeMapFile(exampleMap, "map1.txt");
-        // for(int j = 0; j < 10; j++){
-        //     moveAndObserveGivenMap(exampleMap, j, 1);
-        // }
-        
-        readFileAndIterate(exampleMap);
+        String groundTruthFileName = "mapFiles/map1file1.txt";
+
+        readFileAndIterate(exampleMap, groundTruthFileName);
 
     }
 
-    public static void readFileAndIterate(Map exampleMap) throws Exception{
+    public static void readFileAndIterate(Map exampleMap, String groundTruthFile) throws Exception{
         int initCol, initRow;
         try {
 
-            BufferedReader bufferreader = new BufferedReader(new FileReader("mapFiles/map1file1.txt"));
+            BufferedReader bufferreader = new BufferedReader(new FileReader(groundTruthFile));
     
             String line = bufferreader.readLine();
 
@@ -46,9 +41,13 @@ public class App {
                 CellType observation = CellType.valueOf(splitLine[3]);
                 observations.add(observation);
             }
+
+            bufferreader.close();
         } catch(Exception e){
             throw e;
         }
+
+        
 
 
         GridUI renderer = new GridUI(exampleMap);

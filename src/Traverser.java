@@ -86,7 +86,7 @@ public class Traverser{
             observe(observations.get(i));
             // grid.paintGrid();
 
-            System.out.print("True: " + this.getTrueLocation().row + " "  + this.getTrueLocation().col + " ");
+            // System.out.print("True: " + this.getTrueLocation().row + " "  + this.getTrueLocation().col + " ");
             Cell maxProb = new Cell(CellType.N);
             for(ArrayList<Cell> ac : this.map.getCellList()){
                 for (Cell c : ac){
@@ -98,18 +98,20 @@ public class Traverser{
                     // System.out.println(c);
                 }
             }
-             System.out.println(": " + maxProb.row + " " + maxProb.col);
+            //  System.out.println(": " + maxProb.row + " " + maxProb.col);
   
             //observation
             //save image
             try
             {
-                // Thread.sleep(1000);
-                // grid.repaint();
-                if (i == 10 || i == 50 || i == 100)
-                {
-                    SaveImage.save(grid, i, "HeatMaps");
-                }
+                Thread.sleep(20);
+                grid.repaint();
+                // if (i == 9 || i == 49 || i == 99)
+                // {
+                //     Thread.sleep(100);
+                //     SaveImage.save(grid, i++, "HeatMaps");
+                //     Thread.sleep(100);
+                // }
             }
             catch (Exception e)
             {
