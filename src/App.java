@@ -6,29 +6,28 @@ import java.util.ArrayList;
 
 public class App {
 
+    
+    static ArrayList<Direction> directions = new ArrayList<Direction>();
+    static ArrayList<CellType> observations = new ArrayList<CellType>();
     public static void main(String[] args) throws Exception {
 
-        ArrayList<Direction> directions = new ArrayList<Direction>();
-        ArrayList<CellType> observations = new ArrayList<CellType>();
-        Map exampleMap = new Map(50, 100);
-
-        // // for(int i = 0; i < 10; i++){
-        // //     exampleMap = new Map(50, 100);
-            
-        // //     for(int j = 0; j < 10; j++){
-        // //         moveAndObserveGivenMap(exampleMap, j, i);
-        // //     }
-        // // }
+        Map exampleMap = loadMapFile("map1.txt");
+        // exampleMap.setCellList(exampleMap.generateRandomCellArray());
         
-        readFileAndIterate(directions, observations, exampleMap);
+        // writeMapFile(exampleMap, "map1.txt");
+        // for(int j = 0; j < 10; j++){
+        //     moveAndObserveGivenMap(exampleMap, j, 1);
+        // }
+        
+        readFileAndIterate(exampleMap);
 
     }
 
-    public static void readFileAndIterate(ArrayList<Direction> directions, ArrayList<CellType> observations, Map exampleMap) throws Exception{
+    public static void readFileAndIterate(Map exampleMap) throws Exception{
         int initCol, initRow;
         try {
 
-            BufferedReader bufferreader = new BufferedReader(new FileReader("mapFiles/map0file0.txt"));
+            BufferedReader bufferreader = new BufferedReader(new FileReader("mapFiles/map1file1.txt"));
     
             String line = bufferreader.readLine();
 
@@ -52,7 +51,6 @@ public class App {
         }
 
 
-        
         GridUI renderer = new GridUI(exampleMap);
         Traverser t = new Traverser(exampleMap, renderer, initRow, initCol);
         t.iterateMovements(directions, observations);
@@ -113,5 +111,56 @@ public class App {
             System.out.println("An error occurred.");
             e.printStackTrace();
           }
+    }
+
+    private static Map loadMapFile(String filename)throws IOException{
+        BufferedReader bufferreader = new BufferedReader(new FileReader(filename));
+    
+        String line = bufferreader.readLine();
+
+        // {cols, rows}
+        String[] initCoords = line.split(" "); 
+        int rows = Integer.parseInt(initCoords[1]);
+        int cols = Integer.parseInt(initCoords[0]);
+        
+        String[] splitLine;
+
+        Map readMap = new Map(rows, cols);
+
+        while ((line = bufferreader.readLine()) != null) {   
+            splitLine = line.split(" ");
+            // {col} {row} {type}
+
+            int cCol = Integer.parseInt(splitLine[0]);
+            int cRow = Integer.parseInt(splitLine[1]);
+            CellType ctype = CellType.valueOf(splitLine[2]);
+            
+            Cell c = new Cell(cRow, cCol, ctype);
+            readMap.setCell(c);
+
+            // System.out.println(c);
+        }
+
+        readMap.setInitialProbabilities();
+        return readMap;
+    }
+
+    private static void writeMapFile(Map m, String fileName) throws IOException{
+
+        FileWriter myWriter = new FileWriter(fileName);
+
+        //write intial pos
+        myWriter.write(m.cols + " " + m.rows + "\n");
+        
+        for(ArrayList<Cell> column : m.getCellList()){
+            for(Cell c : column){
+
+                if(c != null){
+                    myWriter.write(c.col + " " + c.row + " " + c.type + "\n");
+                }
+            }
+        }
+        myWriter.close();
+
     }
 }
